@@ -100,11 +100,11 @@ export class ClientesComponent implements OnInit {
     this.clientes.forEach(item => {     
         this.sumaEdad=this.sumaEdad + parseInt(item['edad']);     
     });
-     console.log(this.sumaEdad);
+     //console.log(this.sumaEdad);
     ;
     this.promedioEdad= this.sumaEdad / this.clientes.length;  
-    console.log(this.promedioEdad);
-    console.log(this.clientes.length);
+    //console.log(this.promedioEdad);
+    //console.log(this.clientes.length);
     await this.getVarianza(); 
   }
 
@@ -114,10 +114,9 @@ export class ClientesComponent implements OnInit {
       this.edadMenosPromedio= Math.pow(parseInt(item['edad']) - this.promedioEdad,2); 
        this.arrayEdad.push(this.edadMenosPromedio) ;  
       });
-  
+
       this.arrayEdad.forEach(item => {     
         this.sumaEdadMasF= this.sumaEdadMasF + item; 
-                 
         });
         //console.log(this.arrayEdad);
         //console.log(this.sumaEdadMasF);
