@@ -1,0 +1,115 @@
+  
+  <div class="container">
+    <div class="row justify-content-center p-2">
+      <h1>CRUD FIREBASE</h1>
+    </div> 
+    <div class="row  p-2 ">
+      <div class="col-md-12 p-2 justify-content-center">
+        <h4>Lista de Clientes</h4>
+        <button type="button" class="btn btn-success crear " data-toggle="modal" data-target="#exampleModalCliente">
+          Crear Cliente
+        </button>
+        <button type="button" (click)="getPromedio()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+          PROMEDIO EDADES / DESVIACION ESTANDAR
+        </button>
+      </div>      
+      <table class="table" >
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Fecha Nacimiento</th>
+            <th colspan="2">Accion</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let client of clientes">
+          <tr *ngIf="!client.isedit; else show">
+            <th>{{client.nombre}}</th>
+            <td>{{client.apellido}}</td>
+            <td>{{client.edad}}</td>
+            <td>{{client.fechaNacimiento}}</td>
+            <td><a (click)="EditClient(client)" ><span class="material-icons edit">create</span></a></td>
+            <td><a (click)= "deleteClient(client.id)"><span class="material-icons delete">delete_sweep</span></a></td>
+          </tr>
+          <ng-template #show >          
+           <tr>          
+              <th> <input type="text" [(ngModel)]="client.editnombre" class="form-control"></th>
+              <td><input type="text" [(ngModel)]="client.editapellido" class="form-control"></td>
+              <td><input type="number" [(ngModel)]="client.editedad" class="form-control"></td>
+              <td><input type="date" [(ngModel)]="client.editfechaNacimiento" class="form-control"></td>
+              <td> <a href="#" class="btn btn-danger btn-xs" (click)="client.isedit = false">Cancel</a></td>
+              <td><a href="#" class="btn btn-primary btn-xs" (click)="UpdateClient(client)">Actualizar</a></td>   
+          </tr>      
+          </ng-template>        
+        </tbody>
+      </table>
+      <div class="modal fade" id="exampleModalCliente" tabindex="-1" role="dialog"
+       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Crear Cliente</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="card p-4" >
+                <div class="form-group">
+                  <input type="text" class="form-control" [(ngModel)]="nombre" placeholder="nombre">      
+                </div>
+            
+                <div class="form-group">
+                  <input type="text" class="form-control" [(ngModel)]="apellido" placeholder="apellido">
+                </div>
+            
+                <div class="form-group">
+                  <input type="number" class="form-control" [(ngModel)]="edad" placeholder="edad">
+                </div>
+            
+                <div class="form-group">
+                  <input type="date" class="form-control" [(ngModel)]="fechaNacimiento" placeholder="fecha Nacimiento">
+                </div>        
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <div class="form-group">
+                <button class="btn btn-primary" (click)="createClient()" [disabled]="!nombre || !apellido || !edad  || !fechaNacimiento">Crear Cliente</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLongTitle">Promedio de las edades / Desviacion Estandar</h5>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+            <div class="modal-body">               
+               <div class="row">                 
+                 <h4>Desviacion Estandar: {{promedioEdad}}</h4>
+               </div>
+               <div class="row">                
+                <h4>Desviacion Estandar: {{desviacionEstandar}}</h4>
+              </div>
+             </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+   
+
+   
